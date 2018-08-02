@@ -1,7 +1,7 @@
 import React from 'react';
 import './App.css';
-import BookShelf from './BookShelf.jsx';
-import Books from './Books.js';
+import BookShelf from './BookShelf';
+import Books from './Books';
 import * as BooksAPI from './BooksAPI'
 
 class BooksApp extends React.Component {
@@ -15,6 +15,9 @@ class BooksApp extends React.Component {
 
   render() {
 const allBooks = this.state.books;
+const currentlyReading = allBooks.filter((element) => element.shelf === "currentlyReading");
+const wantToRead = allBooks.filter((element) => element.shelf === "wantToRead");
+const read = allBooks.filter((element) => element.shelf === "read");
 
     return (
       <div className="app">
@@ -48,7 +51,7 @@ const allBooks = this.state.books;
             </div>
             <div className="list-books-content">
 
-           <BookShelf books = {allBooks}/>
+           <BookShelf books = {allBooks} currentlyReading = {currentlyReading} wantToRead = {wantToRead} read = {read}  />
 
             </div>
             <div className="open-search">

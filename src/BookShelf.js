@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
-import Books from './Books.js';
+import Books from './Books';
 
 const BookShelf = function(props) {
   const allBooks = props.books;
-  const currentlyReading = allBooks.filter((element) => element.shelf === "currentlyReading");
-  const wantToRead = allBooks.filter((element) => element.shelf === "wantToRead");
-  const read = allBooks.filter((element) => element.shelf === "read");
+  const currentlyReading = props.currentlyReading;
+  const wantToRead = props.wantToRead;
+  const read = props.read;
   return (
     <div>
 <div className="bookshelf">
@@ -13,7 +13,7 @@ const BookShelf = function(props) {
   <div className="bookshelf-books">
 
         <Books books = {currentlyReading}/>
-  
+
   </div>
 </div>
 
