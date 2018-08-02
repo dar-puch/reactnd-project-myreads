@@ -7,32 +7,20 @@ import * as BooksAPI from './BooksAPI'
 class BooksApp extends React.Component {
 
   state = {
-      books: [],
-      currentlyReading: [],
-      wantToRead: [],
-      read: []
-    }
-    updateState(books) {
-      let currentlyReading = books.filter((element) => element.shelf === "currentlyReading");
-      let wantToRead = books.filter((element) => element.shelf === "wantToRead");
-      let read = books.filter((element) => element.shelf === "read");
-      this.setState({books: books});
-      this.setState({currentlyReading: currentlyReading});
-      this.setState({wantToRead: wantToRead});
-      this.setState({read: read});
+      books: []
     }
 
+
     componentDidMount() {
-      BooksAPI.getAll().then((books) => this.updateState({books: books}));
+      BooksAPI.getAll().then((books) => this.setState({books: books})).catch(() => console.log('getall failed'));
     }
 
   render() {
     const allBooks = this.state.books;
-    const currentlyReading = this.state.books.currentlyReading;
-    const wantToRead = this.state.books.wantToRead;
-    const read = this.state.books.read;
+  console.log('books: ', allBooks);
 
     return (
+
       <div className="app">
 
 
@@ -63,8 +51,7 @@ class BooksApp extends React.Component {
               <h1>MyReads</h1>
             </div>
             <div className="list-books-content">
-
-           <BookShelf books = {allBooks} currentlyReading = {currentlyReading} wantToRead = {wantToRead} read = {read}  />
+           <BookShelf books = {allBooks} />
 
             </div>
             <div className="open-search">

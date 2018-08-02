@@ -1,13 +1,28 @@
 import React, { Component } from 'react';
 import Books from './Books';
 
-const BookShelf = function(props) {
+class BookShelf extends React.Component {
+state = {
+  currentlyReading: [],
+  wantToRead: [],
+  read: []
+}
 
-  const allBooks = props.books;
-  const currentlyReading = props.currentlyReading;
-  const wantToRead = props.wantToRead;
-  const read = props.read;
+books = this.props.books;
+  updateState(books) {
+    let currentlyReading = books.filter((element) => element.shelf === "currentlyReading");
+    let wantToRead = books.filter((element) => element.shelf === "wantToRead");
+    let read = books.filter((element) => element.shelf === "read");
+    this.setState({currentlyReading: currentlyReading});
+    this.setState({wantToRead: wantToRead});
+    this.setState({read: read});
+  }
 
+  componentDidMount() {
+    this.updateState(books);
+    console.log('currently: ', currentlyReading);
+  }
+render(){
   return (
     <div>
 <div className="bookshelf">
@@ -37,6 +52,6 @@ const BookShelf = function(props) {
   </div>
 </div>
 </div>
-)}//end component
+)}}//end component
 
 export default BookShelf;
