@@ -2,16 +2,18 @@ import React, { Component } from 'react';
 import Books from './Books';
 
 const BookShelf = function(props) {
+
   const allBooks = props.books;
   const currentlyReading = props.currentlyReading;
   const wantToRead = props.wantToRead;
   const read = props.read;
+
   return (
     <div>
 <div className="bookshelf">
   <h2 className="bookshelf-title">Currently Reading</h2>
   <div className="bookshelf-books">
-
+currently: {currentlyReading}
         <Books books = {currentlyReading}/>
 
   </div>

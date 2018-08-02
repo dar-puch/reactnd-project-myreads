@@ -14,7 +14,7 @@ class Books extends Component {
           <div className="book-cover" style={{ width: 128, height: 188, backgroundImage: 'url(' + book.imageLinks.thumbnail + ')' }}></div>
 
 
-          <ShelfChanger id={book.id} shelf={book.shelf}/>
+          <ShelfChanger id={book.id}/>
 
 
         </div>
