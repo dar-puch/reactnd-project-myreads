@@ -1,15 +1,33 @@
-import React from 'react';
+import React, {Component} from 'react';
 import './App.css';
 import BookShelf from './BookShelf';
+import * as BooksAPI from './BooksAPI'
 
-
-class BooksApp extends React.Component {
+class BooksApp extends Component {
   state = {
-    showSearchPage: false
+    showSearchPage: false,
+    books: [],
+  }
+move = this.move.bind(this);
 
+  componentDidMount() {
+    BooksAPI.getAll().then(books => {
+      this.setState({books: books})})
+      .catch(() => console.log('getAll failed'));
   }
 
 
+
+move(shelf, book) {
+
+    BooksAPI.update(book, shelf).then(
+    result => {
+      BooksAPI.getAll().then(
+         books => {
+this.setState({books: books})}).then(console.log('state set'))
+}
+);
+}
 
   render() {
 
@@ -45,7 +63,7 @@ class BooksApp extends React.Component {
               <h1>MyReads</h1>
             </div>
             <div className="list-books-content">
-           <BookShelf/>
+           <BookShelf books={this.state.books} move = {this.move}/>
 
             </div>
             <div className="open-search">
