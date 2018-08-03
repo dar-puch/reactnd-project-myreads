@@ -3,19 +3,10 @@ import * as BooksAPI from './BooksAPI';
 import BookShelf from './BookShelf';
 
 class Books extends React.Component {
-  state = {shelf: '',
-books: []};
-  move(event) {
-    this.setState({shelf: event.target.value}, function () {
-      const shelf = this.state.shelf;
-      console.log('shelf', {shelf});
-      const id = this.props.id;
-      BooksAPI.update({id},{shelf}).then(console.log('updated', {shelf}));
-  })};
 
   render() {
     const books = this.props.books;
-console.log('books', {books});
+    console.log('move', this.props.move);
     return(
   <ol className="books-grid">
     {this.props.books.map((book) => (
@@ -24,8 +15,8 @@ console.log('books', {books});
         <div className="book-top">
           <div className="book-cover" style={{ width: 128, height: 188, backgroundImage: 'url(' + book.imageLinks.thumbnail + ')' }}></div>
           <div className="book-shelf-changer">
-            <select onChange={e => this.props.move(e)}>
-              <option value="move" disabled>Move to... shelf: {this.state.shelf}, id: {this.props.id};</option>
+            <select onChange={e => this.props.move(e, book.id)}>
+              <option value="move" disabled>Move to...</option>
               <option value="currentlyReading">Currently Reading</option>
               <option value="wantToRead">Want to Read</option>
               <option value="read">Read</option>

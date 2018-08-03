@@ -1,23 +1,17 @@
 import React from 'react';
 import './App.css';
 import BookShelf from './BookShelf';
-import Books from './Books';
-import * as BooksAPI from './BooksAPI'
+
 
 class BooksApp extends React.Component {
-
   state = {
-      books: []
-    }
+    showSearchPage: false
+
+  }
 
 
-    componentDidMount() {
-      BooksAPI.getAll().then((books) => this.setState({books: books})).catch(() => console.log('getall failed'));
-    }
 
   render() {
-    const allBooks = this.state.books;
-  console.log('books: ', allBooks);
 
     return (
 
@@ -51,7 +45,7 @@ class BooksApp extends React.Component {
               <h1>MyReads</h1>
             </div>
             <div className="list-books-content">
-           <BookShelf books = {allBooks} />
+           <BookShelf/>
 
             </div>
             <div className="open-search">
