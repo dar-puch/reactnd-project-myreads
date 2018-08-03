@@ -2,6 +2,41 @@
 
 
 
+    getAll
+    update
+    search
+
+getAll
+
+Method Signature:
+
+getAll()
+
+    Returns a Promise which resolves to a JSON object containing a collection of book objects.
+    This collection represents the books currently in the bookshelves in your app.
+
+update
+
+Method Signature:
+
+update(book, shelf)
+
+    book: <Object> containing at minimum an id attribute
+    shelf: <String> contains one of ["wantToRead", "currentlyReading", "read"]
+    Returns a Promise which resolves to a JSON object containing the response data of the POST request
+
+search
+
+Method Signature:
+
+search(query)
+
+    query: <String>
+    Returns a Promise which resolves to a JSON object containing a collection of a maximum of 20 book objects.
+    These books do not know which shelf they are on. They are raw results only. You'll need to make sure that books have the correct state while on the search page.
+
+
+
 old app:
 import React from 'react'
 // import * as BooksAPI from './BooksAPI'
@@ -209,3 +244,43 @@ class BooksApp extends React.Component {
 }
 
 export default BooksApp
+
+
+render() {
+  const books = this.props.books;
+console.log('books', {books});
+  return(
+<ol className="books-grid">
+  {this.props.books.map((book) => (
+    <li>
+    <div className="book">
+      <div className="book-top">
+        <div className="book-cover" style={{ width: 128, height: 188, backgroundImage: 'url(' + book.imageLinks.thumbnail + ')' }}></div>
+        <div className="book-shelf-changer">
+          <select onChange={e => this.props.move(e)}>
+            <option value="move" disabled>Move to... shelf: {this.state.shelf}, id: {this.props.id};</option>
+            <option value="currentlyReading">Currently Reading</option>
+            <option value="wantToRead">Want to Read</option>
+            <option value="read">Read</option>
+            <option value="none">None</option>
+          </select>
+        </div>
+      </div>
+      <div className="book-title">{book.title}</div>
+
+      <div className="book-authors">{book.authors.join(', ')}</div>
+    </div>
+    </li>
+  ))}
+
+    </ol>
+)}
+
+
+move(event) {
+  this.setState({shelf: event.target.value}, function () {
+    const shelf = this.state.shelf;
+    console.log('shelf', {shelf});
+    const id = this.props.id;
+    BooksAPI.update({id},{shelf}).then(console.log('updated', {shelf}));
+})};
