@@ -8,11 +8,7 @@ state = {
   books: [],
 
 }
-move(event, id) {
-    const shelf = event.target.value;
-    BooksAPI.update(id,shelf).then(console.log('updated', shelf))
-    .catch(console.log('update failed', shelf));
-};
+
 
 componentDidMount() {
   BooksAPI.getAll().then(books => {
@@ -30,7 +26,7 @@ render(){
   <h2 className="bookshelf-title">Currently Reading</h2>
   <div className="bookshelf-books">
 
-        <Books books = {currentlyReading } move = {this.move}/>
+        <Books books = {currentlyReading } />
 
   </div>
 </div>
@@ -39,7 +35,7 @@ render(){
   <h2 className="bookshelf-title">Want to read</h2>
   <div className="bookshelf-books">
     <ol className="books-grid">
-        <Books books = {wantToRead} move = {this.move} />
+        <Books books = {wantToRead} />
     </ol>
   </div>
 </div>
@@ -48,7 +44,7 @@ render(){
   <h2 className="bookshelf-title">Read</h2>
   <div className="bookshelf-books">
     <ol className="books-grid">
-        <Books books = {read} move = {this.move}/>
+        <Books books = {read} />
     </ol>
   </div>
 </div>
