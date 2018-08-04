@@ -5,7 +5,8 @@ class Books extends Component {
 render() {
     return(
   <ol className="books-grid">
-    {this.props.books.map((book) => (
+    { this.props.books.length !== 0 && 
+      this.props.books.map((book) => (
     <Book key = {book.id} book = {book} move = {this.props.move}/>
     ))}
 
