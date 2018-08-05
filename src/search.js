@@ -25,7 +25,8 @@ isInArray(element, array) {
         this.setState({query: query})
        BooksAPI.search(query, 20).then((booksFound) => {
           if(booksFound && booksFound instanceof Array && (booksFound.length !== 0)) {
-            let booksToUpdate = booksFound.map((bookM) => {
+            booksFound.map((bookM) => {
+              bookM.shelf = 'none';
                this.props.shelvedBooks.filter((bookS) => {if (bookS.id === bookM.id) {
                  bookM.shelf = bookS.shelf;
                 if (!this.isInArray(bookM, this.state.toUpdateShelf)) {
@@ -50,13 +51,13 @@ isInArray(element, array) {
 
 
 
-updateShelves = (array) => {
+/*updateShelves = (array) => {
   array.forEach(element => {
     BooksAPI.update(element, element.shelf).then(console.log('updated')
     )
   })
 
-}
+}*/
 
 render() {
 
