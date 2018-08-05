@@ -7,24 +7,25 @@ import Books from './Books';
 
 class Search extends Component {
   state = {
-      query: '',
       searchBook: [],
-
+      renderBooks: false
     }
 
 
       updateQuery = (query) => {
-         query != '' ? this.setState({ query: query.trim()}) : console.log('empty') ;
+
+       BooksAPI.search(query, 20).then((books) => {
+          if(books && books instanceof Array && (books.length !== 0)) {
+        this.setState({searchBook: books, renderBooks: true })
+      }
+      else {
+        this.setState({ searchBook:[], renderBooks: false})
+      }
+    }).catch(console.log('search error'))
 
 
-    }
 
-  doSearch = (query) =>{
-    BooksAPI.search(query, 20).then((books) => {
-     books ?  this.setState({searchBook: books }) :
-       this.setState({ searchBook:[]}) })}
-  
-
+  }
 
 
 render() {
@@ -46,7 +47,10 @@ onChange={(event) => this.updateQuery(event.target.value)}/>
         </div>
       </div>
       <div className="search-books-results">
-        <Books books = {this.state.searchBook} move = {this.props.move}/>
+      {(this.state.renderBooks === true) ? (<Books books = {this.state.searchBook} move = {this.props.move}/>) : <p> </p>
+    }
+
+
       </div>
     </div>)
 }
