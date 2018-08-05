@@ -6,7 +6,7 @@ render() {
     return(
   <ol className="books-grid">
     { this.props.books.map((book) => (
-    <Book key = {book.id} book = {book} move = {this.props.move}/>
+    <Book key = {book.id} book = {book} move = {this.props.move} toUpdateShelf = {this.props.toUpdateShelf}/>
     ))}
 
       </ol>

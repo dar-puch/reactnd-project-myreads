@@ -35,7 +35,7 @@ this.setState({books: books})}).then(console.log('state set'))
     return (
 
       <div className="app">
-      <Route path="/search" render={(props) => <Search {...props} move = {this.move} />}/>
+      <Route path="/search" render={(props) => <Search {...props} move = {this.move} shelvedBooks = {this.state.books}/>}/>
       <Route exact path = "/" render={() => (
           <div className="list-books">
             <div className="list-books-title">
